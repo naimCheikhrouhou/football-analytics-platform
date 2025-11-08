@@ -1,0 +1,29 @@
+# Example computed fields configuration
+# These will be added when you track your tables in Hasura
+# 
+# Example for players table:
+# - table:
+#     schema: public
+#     name: players
+#   computed_fields:
+#     - name: full_name
+#       definition:
+#         function:
+#           schema: public
+#           name: get_player_full_name
+#         table_argument: player_row
+#       comment: "Computed full name from first_name and last_name"
+# 
+# Example for matches table:
+# - table:
+#     schema: public
+#     name: matches
+#   computed_fields:
+#     - name: goal_difference
+#       definition:
+#         function:
+#           schema: public
+#           name: calculate_goal_difference
+#         table_argument: match_row
+#       comment: "Calculated goal difference (goals_for - goals_against)"
+

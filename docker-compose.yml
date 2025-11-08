@@ -1,0 +1,55 @@
+version: '3.8'
+
+services:
+  hasura:
+    image: hasura/graphql-engine:v2.36.0
+    ports:
+      - "8080:8080"
+    environment:
+      # Database connection - Replace with your Supabase connection string
+      HASURA_GRAPHQL_DATABASE_URL: ${HASURA_GRAPHQL_DATABASE_URL}
+      
+      # Enable the console (default: true)
+      HASURA_GRAPHQL_ENABLE_CONSOLE: "true"
+      
+      # Enable debugging mode (default: false)
+      HASURA_GRAPHQL_DEV_MODE: "true"
+      
+      # Enable CORS
+      HASURA_GRAPHQL_ENABLE_CORS: "true"
+      
+      # CORS allowed origins (adjust for your frontend)
+      HASURA_GRAPHQL_CORS_DOMAIN: "http://localhost:3000,http://localhost:3001,https://*.supabase.co"
+      
+      # JWT Configuration for Supabase Auth
+      # Get your JWT secret from Supabase Dashboard > Settings > API > JWT Secret
+      HASURA_GRAPHQL_JWT_SECRET: |
+        {
+          "type": "HS256",
+          "key": "${SUPABASE_JWT_SECRET}",
+          "claims_format": "json"
+        }
+      
+      # Admin secret (change this in production!)
+      HASURA_GRAPHQL_ADMIN_SECRET: ${HASURA_ADMIN_SECRET:-myadminsecretkey}
+      
+      # Enable remote schema permissions
+      HASURA_GRAPHQL_ENABLE_REMOTE_SCHEMA_PERMISSIONS: "true"
+      
+      # Metadata database (uses same Postgres for simplicity)
+      HASURA_GRAPHQL_METADATA_DATABASE_URL: ${HASURA_GRAPHQL_DATABASE_URL}
+      
+      # Log level
+      HASURA_GRAPHQL_LOG_LEVEL: "debug"
+      
+      # Enable allow list
+      HASURA_GRAPHQL_ENABLE_ALLOWLIST: "false"
+      
+    volumes:
+      # Mount metadata directory
+      - ./hasura/metadata:/hasura-metadata
+      - ./hasura/migrations:/hasura-migrations
+      - ./hasura/seeds:/hasura-seeds
+      
+    restart: unless-stopped
+

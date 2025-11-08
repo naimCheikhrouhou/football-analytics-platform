@@ -1,0 +1,94 @@
+Sports Analytics Platform Frontend
+1. Introduction
+This document outlines the design and functionality of a comprehensive sports analytics website. This platform is engineered to process and visualize data from an ETL backend, providing in-depth insights into match performance, player statistics, and training cycles. The frontend will be a full-fledged website with secure authentication managed by Keycloak. This platform is designed to monitor, analyze, and improve performance.
+Project Goals:
+•	To present a clear and intuitive user interface for complex sports data.
+•	To offer detailed analytics for matches and individual players.
+•	To visualize training cycles in relation to match schedules.
+•	To provide advanced tools for player and team comparisons.
+•	To enable the generation of detailed PDF reports for offline analysis.
+2. Authentication with Keycloak
+User authentication and authorization will be managed by Keycloak, an open-source identity and access management solution. This ensures a secure and scalable authentication process.
+User Flow:
+1.	Login: Users will be redirected to a Keycloak-hosted login page to enter their credentials. This provides a consistent and secure login experience.
+2.	Authentication: Keycloak will authenticate the user and, upon success, redirect them back to the application with a secure token.
+3.	Secure Pages: All pages, with the exception of the login page, will require authentication. This ensures that all data remains confidential and secure.
+4.	Logout: A clear and accessible logout button will allow users to securely end their session.
+
+
+
+
+3. Page Designs
+The website will feature a clean, modern, and visually engaging design, with a mobile-first approach to ensure a seamless experience across all devices The team's branding, including logos and colors, will be consistently applied throughout the site to reinforce identity
+3.1. Dashboard
+The Dashboard will serve as the central hub of the application, providing a high-level overview of key performance indicators (KPIs) and recent activity.
+•	Overview Widgets: A series of customizable widgets will display at-a-glance information such as:
+o	Last match results.
+o	Key team statistics (e.g., win/loss ratio, goals for/against).
+o	Featured player of the week with standout stats.
+•	Recent Activity Feed: A feed displaying recent updates, such as new match data being available or upcoming training sessions.
+•	Alerts and Notifications: A dedicated section for important notifications, such as player injury updates or schedule changes.
+•	Data Storytelling: The dashboard will be designed to guide the user's attention to the most critical information first, following an "F" pattern of web reading. 
+3.2. Matches Page
+The Matches page will provide a comprehensive list of all matches, with powerful filtering and detailed statistics for each game.
+•	Match List: A filterable and sortable table of all past and upcoming matches.
+Filters will include:
+o	Date range.
+o	Competition.
+o	Home/Away.
+o	Result (Win/Loss/Draw).
+•	Match Details View: Clicking on a match will navigate to a detailed view containing:
+o	Match Summary: Scoreline, date, competition, and key events (e.g., goals, cards).
+o	Team Statistics: A side-by-side comparison of team stats such as possession, shots on target, pass accuracy, and defensive actions 
+o	Player Statistics: A table listing the individual performance statistics for every player involved in the match.
+o	Heatmaps and Shot Charts: Visual representations of player positioning and shot locations to provide deeper tactical insights
+3.3. Players Page
+This page will feature a complete roster of players with access to their detailed profiles and performance history.
+•	Player Roster: A searchable and filterable list of all players on the team
+•	Player Profile: Each player will have a dedicated profile page that includes:
+o	Biographical Information: Photo, position, height, weight, and other relevant details.
+o	Aggregated Statistics: Career and season-long performance metrics
+o	Match History: A complete log of every match the player has participated in, with links to the detailed match view
+o	Training History: A log of all attended training sessions.
+•	Training Cycle Visualization: A key feature of the player profile will be the visualization of the training cycle between matches.
+The training cycle will be calculated and displayed to provide a clear understanding of the training load and recovery period between matches. For a given series of match dates (e.g., 10/11, 16/11, 20/11), the training days will be displayed in a "J-" format, counting down to the next match.
+
+
+
+
+
+
+
+Example:
+Date	Event	Cycle
+10/11	Match Day	
+11/11		J-5
+12/11		J-4
+13/11		J-3
+14/11		J-2
+15/11		J-1
+16/11	Match Day	
+17/11		J-3
+18/11		J-2
+19/11		J-1
+20/11	Match Day	
+This visualization clearly communicates the periodization of training, including macrocycles (the entire season), mesocycles (specific training blocks), and microcycles (the weekly training schedule). This allows coaches and players to easily track the training focus and intensity leading up to each match.
+4. Advanced Features
+The platform will include advanced features for in-depth analysis and reporting.
+4.1. Comparison Tools
+•	Player Comparison: Users will be able to select multiple players and compare their statistics side-by-side using various visualization methods.
+o	Tables: A detailed table will show a direct comparison of key performance indicators.
+o	Bar Charts: Bar charts will be used to visually compare specific metrics like goals, assists, and tackles
+o	Radar Charts: Radar charts will provide a multi-dimensional "fingerprint" of a player's abilities, plotting several metrics radiating from a central point; This is an effective way to visualize a player's strengths and weaknesses across various facets of the game.
+•	Team Comparison: Similar to player comparison, users will be able to compare their team's statistics against other teams in the league. This will provide valuable insights into tactical strengths and weaknesses.
+4.2. PDF Report Generation
+The application will have the functionality to generate and download PDF reports for offline analysis and distribution.
+•	Report Types:
+o	Player Performance Report: A detailed report on a single player, including their season stats, match history, and training log.
+o	Match Report: A comprehensive summary of a single match with team and player statistics.
+o	Comparison Report: A PDF version of the on-screen comparison of multiple players or teams.
+•	Customization: Users will have the option to customize the reports by selecting the specific data and visualizations they want to include.
+•	Implementation: The server will generate the PDF files based on user requests and then make them available for download. There are various open-source libraries and tools available for this purpose
+5. Conclusion
+This sports analytics platform is designed to be a powerful and user-friendly tool for teams and individuals looking to gain a competitive edge through data. By combining a robust backend ETL process with a thoughtfully designed and feature-rich frontend, this project will deliver actionable insights that can drive performance improvement. The integration of Keycloak for security, along with advanced visualization and reporting features, will make this a comprehensive solution for modern sports analytics.
+

@@ -1,0 +1,75 @@
+version: '3.8'
+
+services:
+  hasura:
+    image: hasura/graphql-engine:v2.36.0
+    ports:
+      - "8080:8080"
+    environment:
+      # Database connection
+      HASURA_GRAPHQL_DATABASE_URL: ${HASURA_GRAPHQL_DATABASE_URL}
+      
+      # Disable console in production
+      HASURA_GRAPHQL_ENABLE_CONSOLE: "false"
+      
+      # Disable dev mode
+      HASURA_GRAPHQL_DEV_MODE: "false"
+      
+      # Enable CORS
+      HASURA_GRAPHQL_ENABLE_CORS: "true"
+      
+      # CORS allowed origins (comma-separated)
+      HASURA_GRAPHQL_CORS_DOMAIN: ${HASURA_GRAPHQL_CORS_DOMAIN}
+      
+      # JWT Configuration
+      HASURA_GRAPHQL_JWT_SECRET: ${HASURA_GRAPHQL_JWT_SECRET}
+      
+      # Admin secret (MUST be strong in production!)
+      HASURA_GRAPHQL_ADMIN_SECRET: ${HASURA_GRAPHQL_ADMIN_SECRET}
+      
+      # Metadata database
+      HASURA_GRAPHQL_METADATA_DATABASE_URL: ${HASURA_GRAPHQL_DATABASE_URL}
+      
+      # Log level (info for production)
+      HASURA_GRAPHQL_LOG_LEVEL: "info"
+      
+      # Enable allow list (recommended for production)
+      HASURA_GRAPHQL_ENABLE_ALLOWLIST: "true"
+      
+      # Disable telemetry
+      HASURA_GRAPHQL_ENABLED_LOG_TYPES: "startup,http-log,webhook-log,websocket-log,query-log"
+      
+    volumes:
+      - ./hasura/metadata:/hasura-metadata
+      - ./hasura/migrations:/hasura-migrations
+      - ./hasura/seeds:/hasura-seeds
+      
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:8080/healthz"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  pdf-server:
+    build:
+      context: .
+      dockerfile: server/Dockerfile
+    ports:
+      - "3001:3001"
+    environment:
+      NODE_ENV: production
+      PORT: 3001
+      SUPABASE_URL: ${SUPABASE_URL}
+      SUPABASE_SERVICE_ROLE_KEY: ${SUPABASE_SERVICE_ROLE_KEY}
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:3001/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    depends_on:
+      - hasura
+

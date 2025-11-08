@@ -1,0 +1,45 @@
+services:
+  # Hasura GraphQL Engine
+  - type: web
+    name: hasura
+    env: docker
+    dockerfilePath: ./Dockerfile.hasura
+    dockerContext: .
+    plan: starter
+    envVars:
+      - key: HASURA_GRAPHQL_DATABASE_URL
+        sync: false
+      - key: HASURA_GRAPHQL_ADMIN_SECRET
+        generateValue: true
+      - key: HASURA_GRAPHQL_JWT_SECRET
+        sync: false
+      - key: HASURA_GRAPHQL_ENABLE_CONSOLE
+        value: "false"
+      - key: HASURA_GRAPHQL_ENABLE_CORS
+        value: "true"
+      - key: HASURA_GRAPHQL_CORS_DOMAIN
+        sync: false
+      - key: HASURA_GRAPHQL_METADATA_DATABASE_URL
+        sync: false
+      - key: HASURA_GRAPHQL_LOG_LEVEL
+        value: "info"
+      - key: HASURA_GRAPHQL_ENABLE_ALLOWLIST
+        value: "true"
+
+  # PDF Report Server
+  - type: web
+    name: pdf-server
+    env: node
+    buildCommand: npm install
+    startCommand: node server/index.js
+    plan: starter
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: "3001"
+      - key: SUPABASE_URL
+        sync: false
+      - key: SUPABASE_SERVICE_ROLE_KEY
+        sync: false
+

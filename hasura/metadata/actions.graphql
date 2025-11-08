@@ -1,0 +1,114 @@
+# Custom GraphQL actions for complex analytics
+# These can be implemented as REST endpoints or serverless functions
+
+# Example: Player Performance Analytics
+type Query {
+  # Get player performance metrics with computed fields
+  playerPerformanceAnalytics(
+    playerId: uuid!
+    startDate: date
+    endDate: date
+  ): PlayerPerformanceAnalytics
+}
+
+type PlayerPerformanceAnalytics {
+  player_id: uuid!
+  total_matches: Int
+  total_goals: Int
+  total_assists: Int
+  average_rating: Float
+  training_attendance_rate: Float
+  match_win_rate: Float
+  performance_trend: [PerformanceDataPoint]
+}
+
+type PerformanceDataPoint {
+  date: date!
+  match_id: uuid
+  rating: Float
+  goals: Int
+  assists: Int
+}
+
+# Example: Team Comparison Analytics
+type Query {
+  teamComparison(
+    teamIds: [uuid!]!
+    metric: String!
+    startDate: date
+    endDate: date
+  ): TeamComparisonResult
+}
+
+type TeamComparisonResult {
+  teams: [TeamMetric]
+  comparison_chart_data: JSON
+}
+
+type TeamMetric {
+  team_id: uuid!
+  team_name: String!
+  value: Float!
+  percentage_change: Float
+}
+
+# Example: Training Cycle Analysis
+type Query {
+  trainingCycleAnalysis(
+    playerId: uuid!
+    startDate: date!
+    endDate: date!
+  ): TrainingCycleAnalysis
+}
+
+type TrainingCycleAnalysis {
+  player_id: uuid!
+  cycles: [TrainingCycle]
+  average_cycle_length: Int
+  recovery_days: Int
+  training_load_trend: [TrainingLoadPoint]
+}
+
+type TrainingCycle {
+  match_date: date!
+  days_before_match: Int!
+  training_sessions: [TrainingSession]
+  match_performance: MatchPerformance
+}
+
+type TrainingSession {
+  date: date!
+  intensity: String
+  duration: Int
+  type: String
+}
+
+type MatchPerformance {
+  match_id: uuid!
+  rating: Float
+  goals: Int
+  assists: Int
+}
+
+type TrainingLoadPoint {
+  date: date!
+  load: Float!
+  intensity: String!
+}
+
+# PDF Report Generation
+type Mutation {
+  generatePdfReport(
+    reportType: String!
+    entityId: uuid
+    options: jsonb
+  ): PdfReportResponse
+}
+
+type PdfReportResponse {
+  report_id: String!
+  download_url: String!
+  status: String!
+  created_at: timestamptz!
+}
+

@@ -1,0 +1,103 @@
+# Example Hasura Permissions Configuration
+# This file shows how to configure role-based permissions
+# Apply these in Hasura Console or via CLI
+
+# Example permissions for user_profiles table
+# Role: player
+# - Can view own profile only
+select:
+  filter:
+    id:
+      _eq: X-Hasura-User-Id
+
+# Role: coach
+# - Can view all profiles
+select:
+  filter: {}
+insert:
+  check: {}
+  columns: []
+update:
+  filter: {}
+  columns: []
+delete:
+  filter: {}
+
+# Role: analyst
+# - Can view all profiles
+select:
+  filter: {}
+
+# =====================================================
+# Example permissions for matches table
+# =====================================================
+
+# Role: player
+# - Can view all matches
+select:
+  filter: {}
+
+# Role: coach
+# - Full access
+select:
+  filter: {}
+insert:
+  check: {}
+  columns: []
+update:
+  filter: {}
+  columns: []
+delete:
+  filter: {}
+
+# Role: analyst
+# - Can view and update, but not delete
+select:
+  filter: {}
+insert:
+  check: {}
+  columns: []
+update:
+  filter: {}
+  columns: []
+
+# =====================================================
+# Example permissions for players table
+# =====================================================
+
+# Role: player
+# - Can view all players
+select:
+  filter: {}
+
+# Role: coach
+# - Full access
+select:
+  filter: {}
+insert:
+  check: {}
+  columns: []
+update:
+  filter: {}
+  columns: []
+delete:
+  filter: {}
+
+# Role: analyst
+# - Can view and update
+select:
+  filter: {}
+insert:
+  check: {}
+  columns: []
+update:
+  filter: {}
+  columns: []
+
+# =====================================================
+# Note: Configure these in Hasura Console
+# =====================================================
+# Go to Data > [Table] > Permissions tab
+# Add permissions for each role (coach, analyst, player)
+# Hasura will automatically generate the permission rules
+

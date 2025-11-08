@@ -1,0 +1,57 @@
+{
+  "name": "footballproject",
+  "version": "1.0.0",
+  "description": "Sports Analytics Platform with Supabase and Hasura",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "server": "node server/index.js",
+    "server:dev": "nodemon server/index.js",
+    "hasura:start": "docker-compose up -d",
+    "hasura:stop": "docker-compose down",
+    "hasura:logs": "docker-compose logs -f hasura",
+    "hasura:console": "hasura console",
+    "hasura:migrate": "hasura migrate apply",
+    "hasura:metadata": "hasura metadata apply"
+  },
+  "keywords": [
+    "sports",
+    "analytics",
+    "graphql",
+    "hasura",
+    "supabase",
+    "nextjs",
+    "react"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@apollo/client": "^3.9.0",
+    "@supabase/supabase-js": "^2.39.0",
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "graphql": "^16.12.0",
+    "next": "^14.1.0",
+    "pdfkit": "^0.14.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "recharts": "^2.10.3",
+    "uuid": "^9.0.1"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.21",
+    "@types/node": "^20.11.0",
+    "@types/pdfkit": "^0.13.0",
+    "@types/react": "^18.2.0",
+    "@types/react-dom": "^18.2.0",
+    "@types/uuid": "^9.0.7",
+    "autoprefixer": "^10.4.17",
+    "hasura-cli": "^2.36.0",
+    "nodemon": "^3.0.2",
+    "postcss": "^8.4.33",
+    "tailwindcss": "^3.4.1",
+    "typescript": "^5.3.0"
+  }
+}

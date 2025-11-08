@@ -1,0 +1,13 @@
+- name: allowed-queries
+  definition:
+    queries:
+      - name: GetUserProfile
+        query: |
+          query GetUserProfile {
+            user_profiles {
+              id
+              role
+              full_name
+            }
+          }
+

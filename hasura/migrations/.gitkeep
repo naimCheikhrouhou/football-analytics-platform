@@ -1,0 +1,3 @@
+# Hasura migrations will be stored here
+# Run: hasura migrate create <migration_name> --sql-file <file_name>
+
